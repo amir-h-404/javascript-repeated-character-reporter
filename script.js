@@ -1,9 +1,13 @@
 // checking the repeated character:
 function checkRepeatedCharacter() {
   const listOfCharacters = document
-    .querySelector("input[name=inputBox]")
-    .value.split("");
-  const listObject = [];
+      .querySelector("input[name=inputBox]")
+      .value.split(""),
+    listObject = [];
+  if (!isEmptyData(listOfCharacters)) {
+    alertOfResult([], false);
+    return;
+  }
   new Set(listOfCharacters).forEach((value) => {
     const unicode = value.charCodeAt(0),
       uni16 = unicode.toString(16).toUpperCase();
@@ -12,24 +16,25 @@ function checkRepeatedCharacter() {
       repeat: listOfCharacters.filter((item) => item === value).length,
       ascii: unicode <= 127 && unicode >= 0 ? unicode : false,
       css: "\\" + uni16,
-      html: "&#x" + uni16 + ";",
+      html: "&amp;" + "#x" + uni16 + ";",
     });
   });
-  console.log(listObject);
+  alertOfResult(listObject);
 }
 
 // show or hide alert and table:
 function alertOfResult(listOfCharacters = [], visible = true) {
-  const alert = document.getElementById("alertOfResult"),
+  const alertMsg = document.getElementById("alertOfResult"),
     tableOfCharacters = document.getElementById("tableOfCharacters"),
     tbodyOfTable = tableOfCharacters.querySelector("table tbody");
   tbodyOfTable.innerHTML = "";
   if (!visible) {
-    alert.classList.add("d-none");
+    alertMsg.classList.add("d-none");
     tableOfCharacters.classList.add("d-none");
+    alert("empty!");
     return;
   }
-  alert.classList.remove("d-none");
+  alertMsg.classList.remove("d-none");
   tableOfCharacters.classList.remove("d-none");
   listOfCharacters.sort((a, b) => b["repeat"] - a["repeat"]);
   let counter = 1;
@@ -37,7 +42,7 @@ function alertOfResult(listOfCharacters = [], visible = true) {
     if (counter === 1) {
       let message = char["character"];
       if (char["repeat"] === 1) message = "Repeated character not found! (404)";
-      alert.querySelector("strong").innerHTML = message;
+      alertMsg.querySelector("strong").innerHTML = message;
     }
     const tr = document.createElement("tr"),
       th = document.createElement("th"),
@@ -61,7 +66,12 @@ function alertOfResult(listOfCharacters = [], visible = true) {
     tr.appendChild(tdAscii);
     tr.appendChild(tdCss);
     tr.appendChild(tdHtml);
-    tableOfNumbers.querySelector("tbody").appendChild(tr);
+    tbodyOfTable.appendChild(tr);
     counter++;
   });
+}
+
+// checking user input is not empty:
+function isEmptyData(data) {
+  return data.length !== 0;
 }
