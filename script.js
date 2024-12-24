@@ -79,9 +79,11 @@ function isEmptyData(data) {
 
 // Converting special characters:
 function specialCharacters(char = "") {
+  if (char.charCodeAt(0).toString(16).toUpperCase() === "200C")
+    return "half space «»";
   switch (char) {
     case " ":
-      return "space ` `";
+      return "space « »";
     case "<":
       return "&lt;";
     case ">":
