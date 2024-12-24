@@ -39,8 +39,9 @@ function alertOfResult(listOfCharacters = [], visible = true) {
   listOfCharacters.sort((a, b) => b["repeat"] - a["repeat"]);
   let counter = 1;
   listOfCharacters.map((char) => {
+    const validChar = specialCharacters(char["character"]);
     if (counter === 1) {
-      let message = char["character"];
+      let message = validChar;
       if (char["repeat"] === 1) message = "Repeated character not found! (404)";
       alertMsg.querySelector("strong").innerHTML = message;
     }
@@ -53,7 +54,7 @@ function alertOfResult(listOfCharacters = [], visible = true) {
       tdHtml = document.createElement("td");
     th.scope = "row";
     th.innerHTML = String(counter);
-    tdChar.innerHTML = char["character"];
+    tdChar.innerHTML = validChar;
     tdCount.innerHTML = char["repeat"];
     char["ascii"] === false
       ? (tdAscii.innerHTML = "- - -")
@@ -74,4 +75,18 @@ function alertOfResult(listOfCharacters = [], visible = true) {
 // checking user input is not empty:
 function isEmptyData(data) {
   return data.length !== 0;
+}
+
+// Converting special characters:
+function specialCharacters(char = "") {
+  switch (char) {
+    case " ":
+      return "space ` `";
+    case "<":
+      return "&lt;";
+    case ">":
+      return "&gt;";
+    default:
+      return char;
+  }
 }
