@@ -31,9 +31,10 @@ function alertOfResult(listOfCharacters = [], visible = true) {
   if (!visible) {
     alertMsg.classList.add("d-none");
     tableOfCharacters.classList.add("d-none");
-    alert("empty!");
+    displayError("Type a character, please!");
     return;
   }
+  displayError("", false);
   alertMsg.classList.remove("d-none");
   tableOfCharacters.classList.remove("d-none");
   listOfCharacters.sort((a, b) => b["repeat"] - a["repeat"]);
@@ -41,9 +42,11 @@ function alertOfResult(listOfCharacters = [], visible = true) {
   listOfCharacters.map((char) => {
     const validChar = specialCharacters(char["character"]);
     if (counter === 1) {
-      let message = validChar;
-      if (char["repeat"] === 1) message = "Repeated character not found! (404)";
-      alertMsg.querySelector("strong").innerHTML = message;
+      if (char["repeat"] === 1) {
+        alertMsg.classList.add("d-none");
+        displayError("Repeated character not found! (404)");
+      }
+      alertMsg.querySelector("strong").innerHTML = validChar;
     }
     const tr = document.createElement("tr"),
       th = document.createElement("th"),
@@ -91,4 +94,15 @@ function specialCharacters(char = "") {
     default:
       return char;
   }
+}
+
+// display Error:
+function displayError(message = "", visible = true) {
+  const alertOfError = document.getElementById("alertOfError");
+  if (!visible) {
+    alertOfError.classList.add("d-none");
+    return;
+  }
+  alertOfError.classList.remove("d-none");
+  alertOfError.querySelector("strong").innerHTML = message;
 }
