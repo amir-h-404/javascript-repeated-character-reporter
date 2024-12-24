@@ -28,25 +28,27 @@ function alertOfResult(listOfCharacters = [], visible = true) {
     tableOfCharacters = document.getElementById("tableOfCharacters"),
     tbodyOfTable = tableOfCharacters.querySelector("table tbody");
   tbodyOfTable.innerHTML = "";
+  alertMsg.classList.remove("d-none");
   if (!visible) {
-    alertMsg.classList.add("d-none");
     tableOfCharacters.classList.add("d-none");
-    displayError("Type a character, please!");
+    displayError(alertMsg, "Type a character, please!");
     return;
   }
-  displayError("", false);
-  alertMsg.classList.remove("d-none");
+  alertMsg.querySelector("span").innerHTML = "The most repeated character: ";
+  alertMsg.classList.remove("alert-danger");
+  alertMsg.classList.add("alert-success");
   tableOfCharacters.classList.remove("d-none");
   listOfCharacters.sort((a, b) => b["repeat"] - a["repeat"]);
   let counter = 1;
   listOfCharacters.map((char) => {
     const validChar = specialCharacters(char["character"]);
     if (counter === 1) {
+      let messageOfResult = validChar;
       if (char["repeat"] === 1) {
-        alertMsg.classList.add("d-none");
-        displayError("Repeated character not found! (404)");
+        messageOfResult = "A repeated character not found!";
+        displayError(alertMsg);
       }
-      alertMsg.querySelector("strong").innerHTML = validChar;
+      alertMsg.querySelector("strong").innerHTML = messageOfResult;
     }
     const tr = document.createElement("tr"),
       th = document.createElement("th"),
@@ -97,12 +99,9 @@ function specialCharacters(char = "") {
 }
 
 // display Error:
-function displayError(message = "", visible = true) {
-  const alertOfError = document.getElementById("alertOfError");
-  if (!visible) {
-    alertOfError.classList.add("d-none");
-    return;
-  }
-  alertOfError.classList.remove("d-none");
-  alertOfError.querySelector("strong").innerHTML = message;
+function displayError(alertMsg, message = "") {
+  alertMsg.querySelector("span").innerHTML = "Message: ";
+  alertMsg.classList.add("alert-danger");
+  alertMsg.classList.remove("alert-success");
+  alertMsg.querySelector("strong").innerHTML = message;
 }
