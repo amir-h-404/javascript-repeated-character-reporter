@@ -9,7 +9,7 @@ function checkRepeatedCharacter() {
     return;
   }
   new Set(listOfCharacters).forEach((value) => {
-    const unicode = value.charCodeAt(0),
+    const unicode = value.codePointAt(0),
       uni16 = unicode.toString(16).toUpperCase();
     listObject.push({
       character: value,
@@ -79,7 +79,7 @@ function isEmptyData(data) {
 
 // Converting special characters:
 function specialCharacters(char = "") {
-  if (char.charCodeAt(0).toString(16).toUpperCase() === "200C")
+  if (char.codePointAt(0).toString(16).toUpperCase() === "200C")
     return "half space «»";
   switch (char) {
     case " ":
