@@ -26,11 +26,11 @@ const chars3 = ["u", "4", " ", "t"]; // output: none
 
 ## Screenshots
 
-![Main Interface](https://themeisle.com/blog/wp-content/uploads/2024/06/Online-Image-Optimizer-Test-Image-JPG-Version.jpeg)
+![Main Interface](https://github.com/amir-h-404/javascript-repeated-character-reporter/blob/main/images/Screenshot%202024-12-24%20151213.png)
 _Image of example1_
 
-![Results Table](https://themeisle.com/blog/wp-content/uploads/2024/06/Online-Image-Optimizer-Test-Image-JPG-Version.jpeg)
+![Results Table](https://github.com/amir-h-404/javascript-repeated-character-reporter/blob/main/images/Screenshot%202024-12-24%20151414.png)
 _Image of example2_
 
-![Highlighted Character](https://themeisle.com/blog/wp-content/uploads/2024/06/Online-Image-Optimizer-Test-Image-JPG-Version.jpeg)
+![Highlighted Character](https://github.com/amir-h-404/javascript-repeated-character-reporter/blob/main/images/Screenshot%202024-12-24%20151454.png)
 _Image of example3_
